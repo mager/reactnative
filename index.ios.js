@@ -26,11 +26,21 @@ var Weekdays = React.createClass({
         <Text>
           Days of the week:
         </Text>
-          <DayItem day={DAYS[0]} />
+          {this.days()}
         <Text>
         </Text>
       </View>
     );
+  },
+  // Utility functions that we are gonna call manually
+  days: function() {
+    // Returns an array of DayItem components
+    return DAYS.map(function(day) {
+      // Called 7 times, one for each day of the week
+      return <DayItem day={day} />
+    });
+    // An array of DayItem components
+    // days = <DayItem day="Sunday" />, <DayItem day="Monday" />...
   }
 });
 
