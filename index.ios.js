@@ -4,6 +4,17 @@ var AppRegistry = React.AppRegistry;
 var Text = React.Text;
 var View = React.View;
 var StyleSheet = React.StyleSheet;
+var DayItem = require('./src/day-item');
+
+var DAYS = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday'
+];
 
 // Create a React component
 var Weekdays = React.createClass({
@@ -15,21 +26,22 @@ var Weekdays = React.createClass({
         <Text>
           Days of the week:
         </Text>
+          <DayItem day={DAYS[0]} />
+        <Text>
+        </Text>
       </View>
     );
   }
 });
 
+// Props in React is about passing configuration options from a parent to a child element
+
 // Style the React component
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    // reverse the operation
-    flexDirection: 'row',
-    // horizontal
-    justifyContent: 'flex-end',
-    // vertical
-    alignItems: 'flex-start'
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 
