@@ -1,6 +1,7 @@
 // Displays a single day of the week
 var React = require('react-native');
 var Text = React.Text;
+console.log(this.props);
 
 // Create component
 var DayItem = React.createClass({
