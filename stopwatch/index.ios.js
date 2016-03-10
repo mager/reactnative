@@ -1,4 +1,6 @@
+var formatTime = require('minutes-seconds-milliseconds');
 var React = require('react-native');
+
 // Destructuring, same as var Text = React.Text, and so on
 var {
   Text,
@@ -8,14 +10,26 @@ var {
   StyleSheet
 } = React;
 
+
 var StopWatch = React.createClass({
+  /*
+  "state" is an object we use to track and respond to user input. Each component has its own instance of state. Changing state causes our components to re-render. Always default your state to a reasonable value.
+  */
+  getInitialState: function() {
+    return {
+      timeElapsed: null
+    };
+  },
+
   render: function() {
     return (
       <View style={styles.container}>
 
         <View style={[styles.header, this.border('yellow')]}>
           <View style={[styles.timerWrapper, this.border('red')]}>
-            <Text>00:00.00</Text>
+            <Text>
+              {formatTime(this.state.timeElapsed)}
+            </Text>
           </View>
           <View style={[styles.buttonWrapper, this.border('lime')]}>
             {this.startStopButton()}
@@ -30,6 +44,7 @@ var StopWatch = React.createClass({
       </View>
     );
   },
+
   startStopButton: function() {
     return (
       <TouchableHighlight
@@ -43,7 +58,15 @@ var StopWatch = React.createClass({
     return <View><Text>Lap</Text></View>;
   },
   handleStartPress: function() {
-    console.log('Start was pressed');
+    var startTime = new Date();
+
+    setInterval(() => {
+      // Never do this.state.timeElapsed. This is the only way to update state:
+      this.setState({
+        timeElapsed: new Date() - startTime
+      });
+    }, 30)
+
   },
   border: function(color) {
     return {
