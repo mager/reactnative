@@ -17,7 +17,8 @@ var StopWatch = React.createClass({
   */
   getInitialState: function() {
     return {
-      timeElapsed: null
+      timeElapsed: null,
+      running: false
     };
   },
 
@@ -25,19 +26,19 @@ var StopWatch = React.createClass({
     return (
       <View style={styles.container}>
 
-        <View style={[styles.header, this.border('yellow')]}>
-          <View style={[styles.timerWrapper, this.border('red')]}>
-            <Text>
+        <View style={styles.header}>
+          <View style={styles.timerWrapper}>
+            <Text style={styles.timer}>
               {formatTime(this.state.timeElapsed)}
             </Text>
           </View>
-          <View style={[styles.buttonWrapper, this.border('lime')]}>
+          <View style={styles.buttonWrapper}>
             {this.startStopButton()}
             {this.lapButton()}
           </View>
         </View>
 
-        <View style={[styles.footer, this.border('blue')]}>
+        <View style={styles.footer}>
           <Text>I am a list of laps</Text>
         </View>
 
@@ -49,30 +50,36 @@ var StopWatch = React.createClass({
     return (
       <TouchableHighlight
         underlayColor="gray"
-        onPress={this.handleStartPress}>
-        <Text>Start</Text>
+        onPress={this.handleStartPress}
+        style={[styles.button, styles.startButton]}>
+        <Text>
+          {this.state.running ? 'Stop' : 'Start'}
+        </Text>
       </TouchableHighlight>
     )
   },
   lapButton: function() {
-    return <View><Text>Lap</Text></View>;
+    return <View style={styles.button}>
+      <Text>Lap</Text>
+    </View>;
   },
   handleStartPress: function() {
+    if (this.state.running) {
+      clearInterval(this.interval);
+      this.setState({running: false});
+      return;
+    }
+
     var startTime = new Date();
 
-    setInterval(() => {
+    this.interval = setInterval(() => {
       // Never do this.state.timeElapsed. This is the only way to update state:
       this.setState({
-        timeElapsed: new Date() - startTime
+        timeElapsed: new Date() - startTime,
+        running: true
       });
     }, 30)
 
-  },
-  border: function(color) {
-    return {
-      borderColor: color,
-      borderWidth: 2
-    }
   }
 });
 
@@ -97,6 +104,20 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center'
+  },
+  timer: {
+    fontSize: 60
+  },
+  button: {
+    borderWidth: 2,
+    height: 100,
+    width: 100,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  startButton: {
+    borderColor: '#00cc00'
   }
 });
 
