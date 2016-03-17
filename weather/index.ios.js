@@ -6,18 +6,23 @@ var {
   StyleSheet
 } = React;
 
+var Api = require('./src/api');
+
 var Weather = React.createClass({
   getInitialState: function() {
     return {
       pin: {
         latitude: 0,
-        longitude: 0
-      }
+        longitude: 0,
+      },
+      city: '',
+      temperature: '',
+      description: ''
     };
   },
   render: function() {
     return <MapView
-      annotations={[this.state.pin]},
+      annotations={[this.state.pin]}
       onRegionChangeComplete={this.onRegionChangeComplete}
       style={styles.map}></MapView>
   },
@@ -28,6 +33,14 @@ var Weather = React.createClass({
         latitude: region.latitude
       }
     });
+
+    Api(region.latitude, region.longitude)
+      // This is run after the other two .thens
+      .then((data) => {
+        // this === component
+        console.log(data);
+        this.setState(data);
+      });
   }
 });
 
