@@ -5,11 +5,14 @@ var {
   StyleSheet
 } = React;
 
+var SignIn = require('./components/authentication/signin');
+
+
 module.exports = React.createClass({
   render: function() {
     return (
       <View style={styles.container}>
-        <Text>What up Mager</Text>
+        <SignIn />
       </View>
     );
   }
