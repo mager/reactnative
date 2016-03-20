@@ -7,10 +7,12 @@ var {
 var Parse = require('parse/react-native');
 var SignIn = require('./components/authentication/signin');
 var SignUp = require('./components/authentication/signup');
+var Tweets = require('./components/tweets/tweets');
 
 var ROUTES = {
   signin: SignIn,
-  signup: SignUp
+  signup: SignUp,
+  tweets: Tweets
 }
 
 
