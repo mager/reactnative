@@ -41,8 +41,13 @@ module.exports = React.createClass({
 
         <Text style={styles.label}>{this.state.errorMessage}</Text>
         <Button text={'Sign in'} onPress={this.onPress} />
+        <Button text={'I need an account'} onPress={this.onSignUpPress} />
       </View>
     );
+  },
+  onSignUpPress: function() {
+    // Navigate over to signup page. Need to pass Navigator as a prop.
+    this.props.navigator.push({name: 'signup'});
   },
   onPress: function() {
     // Log the user in

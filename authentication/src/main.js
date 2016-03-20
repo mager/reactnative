@@ -6,19 +6,23 @@ var {
 
 var Parse = require('parse/react-native');
 var SignIn = require('./components/authentication/signin');
+var SignUp = require('./components/authentication/signup');
 
 var ROUTES = {
-  signin: SignIn
+  signin: SignIn,
+  signup: SignUp
 }
 
 
 module.exports = React.createClass({
   componentWillMount: function() {
-    Parse.initialize('vDqwTkZEILhk5HbnIXILowkBroDUUr0YNXTIxZ6q', 'KxISAY75oTWUZzZTt2XkQSPxllOgNZ8N0NrrDVCu');
+    Parse.initialize(
+      'vDqwTkZEILhk5HbnIXILowkBroDUUr0YNXTIxZ6q',
+      'KxISAY75oTWUZzZTt2XkQSPxllOgNZ8N0NrrDVCu');
   },
   renderScene: function(route, navigator) {
     var Component = ROUTES[route.name]; // ROUTES['signin'] => SignIn
-    return <Component />;
+    return <Component route={route} navigator={navigator} />;
   },
   render: function() {
     return (
